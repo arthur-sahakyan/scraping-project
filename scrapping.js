@@ -1,11 +1,11 @@
 const {closeBrowser, openBrowser} = require('./browser/index');
 
-async function startScrapping() {
+async function startScraping() {
     const {browser, context} = (await openBrowser());
     const page = await context.newPage();
 
     //go to the page
-    await page.goto('https://www.esterox.org/');
+    await page.goto('https://www.esterox.com/');
 
     // checking if there are button for accept cookies click on it
     const acceptButton = await page.$$("button:text('Accept')");
@@ -16,7 +16,6 @@ async function startScrapping() {
     // click on blogs button in navbar
     await page.click("a:text('Blog')");
 
-    //wait for page onload and get data from blog page
 
     await page.waitForTimeout(6000);
     const result = await page.evaluate(() => {
@@ -36,9 +35,7 @@ async function startScrapping() {
         }
         return results;
     });
-    console.log('result ----------->', result);
-
-    await page.waitForTimeout(50000);
+    console.log(result)
 
     await closeBrowser(browser);
 }
@@ -46,7 +43,7 @@ async function startScrapping() {
 
 (async () => {
     try {
-        await startScrapping();
+        await startScraping();
     } catch (e) {
         console.log('error ------>', e)
     }
