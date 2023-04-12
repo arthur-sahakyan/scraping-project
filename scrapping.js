@@ -16,8 +16,8 @@ async function startScraping() {
     // click on blogs button in navbar
     await page.click("a:text('Blog')");
 
+    await page.waitForSelector('.blog-block__image');
 
-    await page.waitForTimeout(6000);
     const result = await page.evaluate(() => {
         const blogs = document.querySelectorAll('.blog-block');
         const results = [];
